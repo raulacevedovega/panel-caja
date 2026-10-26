@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Informe de Caja 2026</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@500;700;900&display=swap">
+<style>
+/* Concepto: informe vertical de directorio, fondo azul petróleo como el Prezi original, tarjetas verde menta, selector de mes fijo arriba que mueve todas las secciones. */
+:root {
+  --bg: #17384f;
+  --bg2: #1d4660;
+  --card: #245a62;
+  --card2: #2b6a6b;
+  --line: #9ccbb0;
+  --mint: #92e8b6;
+  --mint-soft: #c4f5d8;
+  --blue: #7db8ea;
+  --cream: #ffeebb;
+  --coral: #f09a7e;
+  --lilac: #b9a2ea;
+  --fg: #ffffff;
+  --muted: #b5cdd6;
+  --neg: #ffb3a0;
+  --paper: #e9ecea;
+  --ink: #14232c;
+  --display: "Roboto", "Segoe UI", Arial, sans-serif;
+  --body: "Poppins", "Segoe UI", Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; text-transform: uppercase; letter-spacing: .01em; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* barra fija */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: rgba(23,56,79,.96); border-bottom: 1px solid rgba(156,203,176,.35); }
+.bar .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; padding-block: 10px; }
+.bar .ttl { font: 700 13px var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--mint); margin-right: auto; }
+.chips { display: flex; gap: 6px; overflow-x: auto; max-width: 100%; padding-bottom: 2px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+.chip { border: 1px solid rgba(156,203,176,.5); background: transparent; border-radius: 999px; padding: 5px 13px; font-size: 13px; white-space: nowrap; }
+.chip:hover { background: rgba(146,232,182,.15); }
+.chip[aria-pressed="true"] { background: var(--mint); color: var(--ink); border-color: var(--mint); font-weight: 600; }
+.seg { display: inline-flex; border: 1px solid rgba(156,203,176,.5); border-radius: 999px; overflow: hidden; }
+.seg button { background: transparent; border: 0; padding: 5px 14px; font-size: 13px; white-space: nowrap; }
+.seg button[aria-pressed="true"] { background: var(--blue); color: var(--ink); font-weight: 600; }
+button:focus-visible { outline: 2px solid var(--cream); outline-offset: 2px; }
+
+section { padding-block: 44px; border-bottom: 1px solid rgba(156,203,176,.18); }
+section:last-of-type { border-bottom: 0; }
+.sec-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin-bottom: 22px; }
+.sec-h h2 { font-size: clamp(26px, 4.5vw, 38px); font-weight: 900; line-height: 1.05; }
+.sec-h .per { color: var(--mint); font-size: 14px; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 28px 40px; align-items: start; }
+@media (max-width: 760px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+.box { border: 2px solid var(--line); border-radius: 18px; background: linear-gradient(160deg, var(--card), var(--bg2)); padding: 16px 20px; }
+.box.c { text-align: center; }
+.box .lbl { color: var(--mint-soft); font-size: 14px; }
+.box .big { font: 500 clamp(24px, 4vw, 32px) var(--display); }
+ul.pts { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: #e6f1f4; }
+ul.pts li::marker { color: var(--mint); }
+.muted { color: var(--muted); }
+
+/* acceso */
+#lock { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; }
+#lock form { width: 100%; max-width: 380px; text-align: center; display: grid; gap: 14px; }
+#lock .yr { font: 900 64px/1 var(--display); }
+#lock input { font: inherit; font-size: 16px; padding: 11px 14px; border-radius: 10px; border: 2px solid var(--line); background: var(--bg2); color: var(--fg); text-align: center; }
+#lock .go { background: var(--mint); color: var(--ink); border: 0; border-radius: 10px; padding: 11px; font-weight: 600; }
+#lock .err { color: var(--neg); min-height: 1.4em; font-size: 14px; }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 28px 44px; align-items: center; padding-block: 40px 30px; }
+@media (max-width: 760px) { .hero { grid-template-columns: minmax(0, 1fr); text-align: center; } }
+.hero .t1 { font: 700 18px var(--display); letter-spacing: .04em; text-transform: uppercase; }
+.hero .yr { font: 900 clamp(72px, 14vw, 120px)/1 var(--display); }
+.hero .sub { color: var(--mint-soft); }
+.hero .club { color: var(--muted); font-size: 13px; margin-top: 10px; }
+.stack { display: grid; gap: 16px; }
+.box h3 { text-align: center; font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+.kv { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; font-size: 16px; }
+.kv .v { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kv .tot { border-top: 1px solid rgba(156,203,176,.4); padding-top: 4px; font-weight: 600; }
+.kv .tot.v { font-weight: 600; }
+.neg { color: var(--neg); }
+.pos { color: var(--mint); }
+
+/* donut */
+.donut-row { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 20px 28px; align-items: center; }
+@media (max-width: 520px) { .donut-row { grid-template-columns: minmax(0, 1fr); justify-items: center; } }
+.donut { width: 220px; max-width: 100%; }
+.legend { display: grid; gap: 8px; width: 100%; }
+.legend .it { display: grid; grid-template-columns: 14px minmax(0, 1fr) auto auto; gap: 10px; align-items: center; font-size: 14px; }
+.legend .sw { width: 14px; height: 14px; border-radius: 4px; }
+.legend .pc { color: var(--muted); width: 40px; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* barras horizontales */
+.hb { display: grid; gap: 7px; }
+.hb .r { display: grid; grid-template-columns: minmax(110px, 38%) minmax(0, 1fr); gap: 10px; align-items: center; font-size: 13px; }
+.hb .nm { text-align: right; color: #e6f1f4; line-height: 1.25; }
+.hb .tr { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.hb .fl { height: 20px; background: var(--mint); border-radius: 2px; min-width: 2px; }
+.hb .vv { font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; font-size: 13px; }
+@media (max-width: 520px) { .hb .r { grid-template-columns: minmax(0, 1fr); gap: 2px; } .hb .nm { text-align: left; } }
+
+/* tabla socios */
+.tw { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 14px; }
+th, td { padding: 7px 12px; text-align: right; font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }
+thead th { background: var(--mint); color: var(--ink); font-weight: 600; }
+tbody tr:nth-child(odd) td { background: rgba(196,245,216,.14); }
+tbody tr:nth-child(even) td { background: rgba(196,245,216,.07); }
+th.cur, td.cur { font-weight: 600; }
+h3.sub { font-size: 17px; text-decoration: underline; text-underline-offset: 4px; margin: 28px 0 12px; font-weight: 700; }
+
+/* gráficos */
+.chartbox { width: 100%; }
+.chartbox svg { width: 100%; height: auto; display: block; }
+.cols { display: grid; gap: 6px; align-items: end; height: 150px; }
+.col { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; background: transparent; border: 0; padding: 0; gap: 3px; }
+.col .b { width: 100%; background: var(--mint-soft); opacity: .55; border-radius: 3px 3px 0 0; min-height: 2px; }
+.col[aria-pressed="true"] .b { opacity: 1; background: var(--mint); }
+.col .n { font-size: 12px; font-weight: 600; }
+.col:hover .b { opacity: .9; }
+.cl { display: grid; gap: 6px; font-size: 12px; color: var(--muted); text-align: center; margin-top: 6px; }
+
+/* cuenta final */
+.paper { background: var(--paper); color: var(--ink); border-radius: 6px; padding: 26px 20px; max-width: 440px; margin: 0 auto; text-align: center; box-shadow: 10px -10px 0 #9bc4ab; }
+.paper .l { font: 600 14px var(--display); }
+.paper .v { font: 700 24px var(--display); font-variant-numeric: tabular-nums; }
+.paper .op { margin: 6px auto; width: 22px; height: 22px; border-radius: 50%; background: #cf5a5a; color: #fff; font-weight: 700; line-height: 22px; font-size: 15px; }
+.paper .eq { border-top: 2px solid #7fb394; border-bottom: 2px solid #7fb394; margin: 12px 30px; padding: 6px 0; }
+.paper .neg { color: #a8321f; }
+.foot { padding-block: 26px 40px; font-size: 12px; color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) { .hb .fl, .col .b { transition: width .35s ease, height .35s ease; } }
+</style>
+</head><body>
+
+<div id="lock"><form id="lock-f">
+  <div class="t1" style="font:700 16px var(--display);letter-spacing:.06em;text-transform:uppercase">Informe de caja</div>
+  <div class="yr">2026</div>
+  <div class="muted">Club de Golf Las Brisas de Chicureo</div>
+  <input id="pw" type="password" autocomplete="current-password" placeholder="Clave de acceso" aria-label="Clave de acceso">
+  <button class="go" type="submit">Ingresar</button>
+  <div class="err" id="lock-err" role="alert"></div>
+</form></div>
+
+<div class="bar" hidden><div class="wrap">
+  <div class="ttl">Club de Golf Las Brisas de Chicureo · Caja 2026</div>
+  <div class="chips" id="chips" role="group" aria-label="Mes"></div>
+  <div class="seg" id="seg" role="group" aria-label="Vista">
+    <button type="button" data-m="mes" aria-pressed="false">Solo el mes</button>
+    <button type="button" data-m="acc" aria-pressed="true">Acumulado</button>
+  </div>
+</div></div>
+
+<main class="wrap" hidden>
+  <div class="hero">
+    <div>
+      <div class="t1">Informe de caja</div>
+      <div class="yr">2026</div>
+      <div class="sub" id="hero-al"></div>
+      <div class="club">Cifras en UF · Club de Golf Las Brisas de Chicureo</div>
+    </div>
+    <div class="stack">
+      <div class="box"><h3 id="h-mes">Mes</h3><div class="kv" id="kv-mes"></div></div>
+      <div class="box"><h3 id="h-acc">Acumulado</h3><div class="kv" id="kv-acc"></div></div>
+    </div>
+  </div>
+
+  <section id="ingresos">
+    <div class="sec-h"><h2>Detalle de ingresos</h2><span class="per" data-per></span></div>
+    <div class="grid2">
+      <ul class="pts" id="ing-txt"></ul>
+      <div class="donut-row"><div class="donut" id="ing-donut"></div><div class="legend" id="ing-leg"></div></div>
+    </div>
+  </section>
+
+  <section id="cuotas">
+    <div class="sec-h"><h2>Cuotas sociales</h2><span class="per" data-per></span></div>
+    <div class="grid2" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+      <div class="box c"><div class="lbl">Total ingresos cuotas sociales</div><div class="big num" id="k-cs"></div></div>
+      <div class="box c"><div class="lbl">Total ingresos cuotas de incorporación</div><div class="big num" id="k-ci"></div></div>
+    </div>
+    <ul class="pts" id="soc-txt" style="margin-top:24px"></ul>
+    <h3 class="sub">Movimiento de socios por año</h3>
+    <div class="tw"><table id="soc-tab"></table></div>
+    <h3 class="sub">Movimiento de socios 2026, por mes</h3>
+    <div class="seg" id="inc-seg" role="group" aria-label="Tipo" style="margin-bottom:12px"><button type="button" data-t="inc" aria-pressed="true">Incorporados</button><button type="button" data-t="ren" aria-pressed="false">Renunciados</button></div>
+    <div class="chartbox"><div class="cols" id="inc-cols"></div><div class="cl" id="inc-lbl"></div></div>
+    <h3 class="sub">Ingresos por cuotas sociales</h3>
+    <div class="chartbox" id="cs-line"></div>
+  </section>
+
+  <section id="otros">
+    <div class="sec-h"><h2>Otros ingresos</h2><span class="per" data-per></span></div>
+    <div class="grid2">
+      <div>
+        <div class="box c" style="margin-bottom:22px"><div class="lbl">Otros ingresos</div><div class="big num" id="k-ot"></div></div>
+        <ul class="pts">
+          <li>Tenis: incluye academias, luz de canchas de tenis, pádel y squash.</li>
+          <li>Actividades deportivas: incluye clases dirigidas.</li>
+          <li>Otros ingresos: devolución de seguro, arriendo de casa, cancha de práctica.</li>
+        </ul>
+      </div>
+      <div class="hb" id="ot-bars"></div>
+    </div>
+  </section>
+
+  <section id="gastos">
+    <div class="sec-h"><h2>Detalle de gastos</h2><span class="per" data-per></span></div>
+    <div class="grid2">
+      <div>
+        <div class="box c" style="margin-bottom:22px"><div class="lbl">Gastos operacionales</div><div class="big num" id="k-gt"></div></div>
+        <div class="hb" id="g-bars"></div>
+      </div>
+      <div>
+        <h3 style="font-size:22px;margin-bottom:14px">Clasificación de gastos</h3>
+        <ul class="pts">
+          <li><b>Remuneraciones:</b> todo el personal del club, leyes sociales, almuerzos, uniformes, entre otros. Incluye indemnizaciones por reestructuración de personal.</li>
+          <li><b>Proveedores:</b> insumos para el mantenimiento de las canchas de golf, mantenimiento y reparaciones del club house y áreas deportivas, entre otros.</li>
+          <li><b>Servicios básicos:</b> electricidad, agua, gas, teléfonos.</li>
+          <li><b>Servicios externos:</b> contrato de aseo, asesores de cancha, profesores de clases dirigidas, asesoría legal y honorarios.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="cancha">
+    <div class="sec-h"><h2>Gastos cancha</h2><span class="per" data-per></span></div>
+    <div class="grid2">
+      <div>
+        <div class="box c" style="margin-bottom:22px"><div class="lbl">Total gastos cancha</div><div class="big num" id="k-gc"></div></div>
+        <ul class="pts" id="c-txt"></ul>
+      </div>
+      <div class="donut-row"><div class="donut" id="c-donut"></div><div class="legend" id="c-leg"></div></div>
+    </div>
+    <h3 class="sub">Electricidad cancha, enero a agosto</h3>
+    <div class="hb" id="el-bars" style="max-width:560px"></div>
+  </section>
+
+  <section id="inversiones">
+    <div class="sec-h"><h2>Inversiones</h2><span class="per" data-per></span></div>
+    <div class="grid2">
+      <div class="box c"><div class="lbl">Total pagado en el período</div><div class="big num" id="k-inv"></div></div>
+      <div class="hb" id="inv-bars"></div>
+    </div>
+  </section>
+
+  <section id="final">
+    <div class="sec-h"><h2>Cuenta final</h2><span class="per" id="fin-al"></span></div>
+    <div class="paper" id="paper"></div>
+  </section>
+
+  <div class="foot">Cifras de caja en UF. <span id="stamp"></span></div>
+</main>
+
+<script>
+let D = null;
+const ENC = {"v": 1, "iter": 200000, "salt": "vY5qOIym6ev2bb86thCtAg==", "iv": "QTXh8uyriGI8Hx1P", "ct": "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", "generado_iso": "2026-10-26T12:07:51"};
+const DATA_URL = "";
+const MN = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+let N = 0, M = null;
+let sel = -1, mode = "acc", incTab = "inc";
+
+const $ = id => document.getElementById(id);
+const sum = (a, f, t) => a.slice(f, t + 1).reduce((s, x) => s + x, 0);
+function fmt(n) { const r = Math.round(n), s = String(Math.abs(r)).replace(/\B(?=(\d{3})+(?!\d))/g, "."); return r < 0 ? "(" + s + ")" : s; }
+const uf = n => "UF " + fmt(n);
+const pct = (a, b) => b ? Math.round(a / b * 100) + "%" : "0%";
+const esc = s => String(s).replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+const sgn = n => Math.round(n) < 0 ? "neg" : "";
+const range = () => mode === "mes" ? [sel, sel] : [0, sel];
+const perText = () => mode === "mes" ? MN[sel] + " 2026" : (sel === 0 ? "Enero 2026" : "Enero a " + MN[sel].toLowerCase() + " 2026");
+
+function kv(el, ing, gas) {
+  const res = ing - gas;
+  $(el).innerHTML =
+    `<div>Ingresos operacionales</div><div class="v">${uf(ing)}</div>` +
+    `<div>Gastos operacionales</div><div class="v">${uf(-gas)}</div>` +
+    `<div class="tot">Resultado</div><div class="v tot ${res < 0 ? "neg" : "pos"}">${uf(res)}</div>`;
+}
+
+function donut(el, leg, items, centerTop, centerBot) {
+  const tot = items.reduce((s, i) => s + i.v, 0);
+  const R = 70, C = 2 * Math.PI * R;
+  let off = 0, circles = "";
+  items.forEach(i => {
+    const len = tot ? i.v / tot * C : 0;
+    circles += `<circle cx="100" cy="100" r="${R}" fill="none" stroke="${i.c}" stroke-width="34" stroke-dasharray="${Math.max(len - 1.5, 0)} ${C}" stroke-dashoffset="${-off}" transform="rotate(-90 100 100)"/>`;
+    off += len;
+  });
+  $(el).innerHTML = `<svg viewBox="0 0 200 200" role="img" aria-label="${esc(centerTop)} ${esc(centerBot)}">${circles}
+    <text x="100" y="96" text-anchor="middle" fill="#9ccbb0" font-size="11" font-family="Poppins,sans-serif">${esc(centerTop)}</text>
+    <text x="100" y="116" text-anchor="middle" fill="#ffffff" font-size="17" font-weight="700" font-family="Roboto,sans-serif">${esc(centerBot)}</text></svg>`;
+  $(leg).innerHTML = items.map(i => `<div class="it"><span class="sw" style="background:${i.c}"></span><span>${esc(i.n)}</span><b class="num">${uf(i.v)}</b><span class="pc">${pct(i.v, tot)}</span></div>`).join("");
+}
+
+function hbars(el, items, color) {
+  const mx = Math.max(1, ...items.map(i => i.v));
+  $(el).innerHTML = items.length ? items.map(i =>
+    `<div class="r"><div class="nm">${esc(i.n)}</div><div class="tr"><div class="fl" style="width:${Math.max(i.v / mx * 78, 0.5)}%;background:${color || ""}"></div><span class="vv">${uf(i.v)}</span></div></div>`
+  ).join("") : `<div class="muted">Sin movimientos en el período.</div>`;
+}
+
+function lineChart() {
+  const v = D.ingresos.cuotas_sociales.slice(0, N);
+  const W = 700, H = 280, L = 52, R = 16, T = 34, B = 34;
+  const lo = Math.floor((Math.min(...v) - 150) / 100) * 100, hi = Math.ceil((Math.max(...v) + 100) / 100) * 100;
+  const x = i => L + (N === 1 ? (W - L - R) / 2 : i * (W - L - R) / (N - 1));
+  const y = n => T + (hi - n) / (hi - lo) * (H - T - B);
+  let g = "";
+  for (let t = lo; t <= hi; t += 100) g += `<line x1="${L}" x2="${W - R}" y1="${y(t)}" y2="${y(t)}" stroke="#9ccbb0" stroke-opacity=".18"/><text x="${L - 8}" y="${y(t) + 4}" text-anchor="end" fill="#b5cdd6" font-size="11">${fmt(t)}</text>`;
+  const path = v.map((n, i) => (i ? "L" : "M") + x(i) + " " + y(n)).join(" ");
+  let pts = "";
+  v.forEach((n, i) => {
+    const on = i === sel;
+    pts += `<g class="pt" data-i="${i}" style="cursor:pointer"><circle cx="${x(i)}" cy="${y(n)}" r="${on ? 8 : 5.5}" fill="${on ? "#ffeebb" : "#7db8ea"}" stroke="#17384f" stroke-width="2"/><circle cx="${x(i)}" cy="${y(n)}" r="18" fill="transparent"/>
+      <text x="${x(i)}" y="${y(n) - 14}" text-anchor="middle" fill="#fff" font-size="12" font-weight="${on ? 700 : 500}">${fmt(n)}</text>
+      <text x="${x(i)}" y="${H - 10}" text-anchor="middle" fill="${on ? "#ffeebb" : "#b5cdd6"}" font-size="12" font-weight="${on ? 700 : 400}">${MN[i].slice(0, 3)}</text></g>`;
+  });
+  $("cs-line").innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Ingresos por cuotas sociales por mes en UF">${g}<path d="${path}" fill="none" stroke="#7db8ea" stroke-width="2.5"/>${pts}</svg>`;
+  document.querySelectorAll("#cs-line .pt").forEach(p => p.addEventListener("click", () => { sel = +p.dataset.i; render(); }));
+}
+
+function colsChart() {
+  const v = (incTab === "inc" ? D.socios.inc_mes : D.socios.ren_mes).slice(0, N), mx = Math.max(...v, 1);
+  const tpl = `grid-template-columns:repeat(${N},minmax(0,1fr))`;
+  $("inc-cols").style.cssText = tpl; $("inc-lbl").style.cssText = tpl;
+  $("inc-cols").innerHTML = v.map((n, i) => `<button type="button" class="col" data-i="${i}" aria-pressed="${i === sel}" aria-label="${MN[i]}: ${n}"><span class="n">${n}</span><span class="b" style="height:${n / mx * 100 * .78}%"></span></button>`).join("");
+  $("inc-lbl").innerHTML = v.map((n, i) => `<span>${MN[i].slice(0, 3)}</span>`).join("");
+  document.querySelectorAll("#inc-seg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.t === incTab));
+  document.querySelectorAll("#inc-cols .col").forEach(b => b.addEventListener("click", () => { sel = +b.dataset.i; render(); }));
+}
+
+function socios() {
+  const s = D.socios, last = s.anios.length - 1;
+  const cell = (x, i) => `<td class="${i === last ? "cur" : ""}">${x === null ? "-" : x}</td>`;
+  $("soc-tab").innerHTML = `<thead><tr><th>Detalle</th>${s.anios.map((a, i) => `<th class="${i === last ? "cur" : ""}">${a}</th>`).join("")}</tr></thead><tbody>` +
+    ["Incorporados", "Renunciados", "Eliminados", "Socios neto"].map(k => `<tr><td>${k}</td>${s.filas[k].map(cell).join("")}</tr>`).join("") + "</tbody>";
+  const e = M.emision || {};
+  const pts = [`${s.neto} socios netos al ${D.al_fecha}`];
+  if (e.cuotas) pts.push(`Emisión de ${MN[N - 1].toLowerCase()} equivale a ${e.cuotas} cuotas sociales mensuales (cuotas de UF ${String(e.valor_cuota).replace(".", ",")})`);
+  if (e.promedio_2026 && e.promedio_2025) pts.push(`La recaudación del 2026 equivale a un promedio de ${e.promedio_2026} cuotas mensuales y el 2025 a ${e.promedio_2025}`);
+  $("soc-txt").innerHTML = pts.map(t => `<li>${esc(t)}</li>`).join("");
+}
+
+function render() {
+  const [f, t] = range();
+  const ing = D.ingresos, per = perText();
+  document.querySelectorAll("[data-per]").forEach(e => e.textContent = per);
+  document.querySelectorAll("#chips .chip").forEach((b, i) => b.setAttribute("aria-pressed", i === sel));
+  document.querySelectorAll("#seg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === mode));
+
+  // hero
+  const last = sel === N - 1;
+  $("hero-al").textContent = last ? "Al " + D.al_fecha : "Al cierre de " + MN[sel].toLowerCase() + " del 2026";
+  $("h-mes").textContent = MN[sel];
+  $("h-acc").textContent = sel === 0 ? "Acumulado" : "Acumulado a " + MN[sel].toLowerCase();
+  kv("kv-mes", D.hero.ingresos[sel], D.hero.gastos[sel]);
+  kv("kv-acc", sum(D.hero.ingresos, 0, sel), sum(D.hero.gastos, 0, sel));
+
+  // ingresos
+  const cs = sum(ing.cuotas_sociales, f, t), ci = sum(ing.cuotas_incorporacion, f, t), ot = sum(ing.otros, f, t), it = cs + ci + ot;
+  donut("ing-donut", "ing-leg", [
+    { n: "Cuotas sociales", v: cs, c: "#ffffff" },
+    { n: "Cuotas de incorporación", v: ci, c: "#a9c9ee" },
+    { n: "Otros ingresos", v: ot, c: "#92e8b6" }], "Ingresos", uf(it));
+  $("ing-txt").innerHTML = `<li>Las cuotas sociales representaron un ${pct(cs, it)} de los ingresos de ${mode === "mes" ? "este mes" : "este período"}.</li>
+    <li>Los otros ingresos corresponden a los green fee, escuelas, actividades deportivas, estacionamiento de carros, lockers, entre otros.</li>`;
+
+  // cuotas
+  $("k-cs").textContent = uf(cs); $("k-ci").textContent = uf(ci);
+  lineChart(); colsChart();
+
+  // otros ingresos
+  const rows = D.otros_detalle.map(r => ({ n: r.nombre, v: sum(r.meses, f, t) })).filter(r => Math.abs(r.v) >= 0.5);
+  const sd = ot - rows.reduce((s, r) => s + r.v, 0);
+  if (Math.abs(sd) >= 0.5) rows.push({ n: "Otros sin detalle", v: sd });
+  rows.sort((a, b) => b.v - a.v);
+  $("k-ot").textContent = uf(ot);
+  hbars("ot-bars", rows);
+
+  // gastos
+  const gt = sum(D.gastos_total, f, t);
+  $("k-gt").textContent = uf(gt);
+  hbars("g-bars", D.gastos.map(r => ({ n: r.nombre, v: sum(r.meses, f, t) })).filter(r => r.v >= 0.5).sort((a, b) => b.v - a.v));
+
+  // cancha
+  const cc = D.cancha.map(r => ({ n: r.nombre, v: sum(r.meses, f, t) }));
+  const cct = cc.reduce((s, r) => s + r.v, 0);
+  const col = { "Rem.": "#9bc4ab", "Indemn.": "#f09a7e", "Insumos": "#ffeebb", "Electricidad cancha": "#7db8ea", "Asesor": "#e0804f", "Otros Gastos": "#b9a2ea" };
+  donut("c-donut", "c-leg", cc.filter(r => r.v >= 0.5).map(r => ({ n: r.n, v: r.v, c: col[r.n] || "#ccc" })), "Gastos cancha", uf(cct));
+  $("k-gc").textContent = uf(cct);
+  $("c-txt").innerHTML = `<li>Representan un ${pct(cct, gt)} de los gastos operacionales.</li>
+    <li>Remuneraciones del área, clasificadas en: mantenimiento cancha, riego, taller mecánico y bodega.</li>
+    <li>En los insumos hay químicos, sistemas de riego, repuestos de maquinarias, combustible, arenas, semillas y otros.</li>
+    <li>Electricidad de bombas.</li>`;
+  const e26 = sum(D.cancha.find(r => r.nombre === "Electricidad cancha").meses, 0, N - 1), e25 = M.electricidad_2025_ene_ago;
+  hbars("el-bars", [{ n: "2026", v: e26 }, { n: "2025", v: e25 }]);
+  const fl = document.querySelectorAll("#el-bars .fl"); if (fl[0]) fl[0].style.background = "#92e8b6"; if (fl[1]) fl[1].style.background = "#7db8ea";
+
+  // inversiones
+  const inv = D.inversiones.map(r => ({ n: r.nombre, v: sum(r.meses, f, t) })).filter(r => Math.abs(r.v) >= 0.5);
+  $("k-inv").textContent = uf(inv.reduce((s, r) => s + r.v, 0));
+  hbars("inv-bars", inv, "#92e8b6");
+}
+
+function cuentaFinal() {
+  const c = Object.assign({}, M.cuenta_final);
+  c.resultado_operacional = sum(D.ingresos.total, 0, N - 1) - sum(D.gastos_total, 0, N - 1);
+  c.inversiones = -D.inversiones.reduce((s, r) => s + sum(r.meses, 0, N - 1), 0);
+  const s1 = c.saldo_inicial + c.resultado_operacional + c.inversiones, fin = s1 + c.cuota_extraordinaria + c.prestamo_inmobiliaria;
+  const L = (l, v) => `<div class="l">${l}</div><div class="v ${v < 0 ? "neg" : ""}">${uf(v)}</div>`;
+  const op = '<div class="op">+</div>';
+  $("fin-al").textContent = "Periodo 2026 · al " + D.al_fecha;
+  $("paper").innerHTML = L("Saldo inicial 2026", c.saldo_inicial) + op + L("Resultado operacional 2026", c.resultado_operacional) + op + L("Inversiones", c.inversiones) +
+    `<div class="eq">${L("Saldo", s1)}</div>` + op + L("Cuota extraordinaria", c.cuota_extraordinaria) + op + L("Préstamo inmobiliaria", c.prestamo_inmobiliaria) +
+    `<div class="eq">${L("Saldo final", fin)}</div>`;
+}
+
+function boot() {
+  N = D.n; M = D.manual; sel = sel < 0 ? N - 1 : Math.min(sel, N - 1);
+  $("chips").innerHTML = MN.slice(0, N).map((m, i) => `<button type="button" class="chip" data-i="${i}" aria-pressed="false">${m.slice(0, 3)}</button>`).join("");
+  $("stamp").textContent = "Datos actualizados el " + D.generado + ".";
+  socios(); cuentaFinal(); render();
+}
+$("chips").addEventListener("click", e => { const b = e.target.closest(".chip"); if (b) { sel = +b.dataset.i; render(); } });
+$("seg").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { mode = b.dataset.m; render(); } });
+$("inc-seg").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { incTab = b.dataset.t; colsChart(); } });
+
+// Actualización automática: si hay una dirección de datos, se consulta al abrir y cada vez que el panel vuelve a primer plano.
+let lastCheck = 0, PW = "";
+const b64 = t => Uint8Array.from(atob(t), c => c.charCodeAt(0));
+async function decrypt(enc, pw) {
+  const km = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
+  const key = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: b64(enc.salt), iterations: enc.iter, hash: "SHA-256" }, km, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+  const buf = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(enc.iv) }, key, b64(enc.ct));
+  return JSON.parse(new TextDecoder().decode(buf));
+}
+async function unlock(pw) {
+  D = await decrypt(ENC, pw); PW = pw;
+  $("lock").hidden = true; document.querySelector(".bar").hidden = false; document.querySelector("main").hidden = false;
+  boot(); refresh();
+}
+async function refresh() {
+  if (!DATA_URL || Date.now() - lastCheck < 30000) return;
+  lastCheck = Date.now();
+  try {
+    const r = await fetch(DATA_URL + (DATA_URL.includes("?") ? "&" : "?") + "t=" + Date.now(), { cache: "no-store" });
+    if (!r.ok) return;
+    const enc = await r.json();
+    if (enc && enc.generado_iso && D && enc.generado_iso !== D.generado_iso) { D = await decrypt(enc, PW); boot(); }
+  } catch (e) { /* sin conexión o clave cambiada: se mantiene la última versión */ }
+}
+$("lock-f").addEventListener("submit", async e => {
+  e.preventDefault();
+  try { await unlock($("pw").value.trim()); try { localStorage.setItem("pcaja", $("pw").value.trim()); } catch (x) {} }
+  catch (x) { $("lock-err").textContent = (window.crypto && crypto.subtle) ? "Clave incorrecta." : "Este navegador no puede abrir el archivo directamente. Abre el enlace del panel en internet."; }
+});
+document.addEventListener("visibilitychange", () => { if (!document.hidden) refresh(); });
+(async () => { let saved = ""; try { saved = localStorage.getItem("pcaja") || ""; } catch (x) {} if (saved) { try { await unlock(saved); } catch (x) { try { localStorage.removeItem("pcaja"); } catch (y) {} } } })();
+</script>
+</body></html>
